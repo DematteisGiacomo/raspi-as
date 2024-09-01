@@ -9,6 +9,7 @@ Assembly projects on Raspberry pi 4 model b:
 ## uart
 
 ## pwd
+Control a motor with pwd peripheral
 
 ## To compile
 ```bash
