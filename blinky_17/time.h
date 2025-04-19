@@ -11,7 +11,6 @@ GetTimeStamp:
 /* void wait (int r0)
    the milliseconds are specified in r0
 */
-
 wait:
    push {lr}
    

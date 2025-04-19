@@ -18,24 +18,28 @@ UartInit:
 
 @ Set GPIO 14 and 15 to alternative function 0 (TXD0 and RXD0)
    mov r0,#14           @TXD0
-   mov r1,#0b100        @ALT 0
+   mov r1,#GPIO_alt0        @ALT 0
    bl SetGPIOFunction
 
    mov r0,#15           @RXD0
-   mov r1,#0b100        @ALT 0
+   mov r1,#GPIO_alt0        @ALT 0
    bl SetGPIOFunction
 
 @ Disable pull up/down for all GPIO pins & delay for 150 cycles
 @ UART needs those pins (GPIO 14 for TX and GPIO 15 for RX) to be very responsive,
 @ only listening to or sending the exact signals they’re supposed to.
-   ldr r0,=GPIO_PUP_PDN_CNTRL_REG0
-   ldr r1, [r0]
-   bic r1, r1, #(0b11 << 28)  @ Clear bits 28-29 (GPIO 14)
-   bic r1, r1, #(0b11 << 30)  @ Clear bits 30-31 (GPIO 15)
-   str r1, [r0]
+@ have a look at broadcom BCM2835 peripheral datasheet
+   ldr r0,=GPPUD
+   mov r1,#GPPUD_OFF
+   str r1,[r0]
 
-   ldr r0,=MICROS_PER_SECOND
+   mov r0,#MICROS_PER_MILLISECOND
    bl wait
+
+   ldr r0,=GPPUDCLK0
+   mov r1,#0b11                  @two Pins
+   lsl r1,#14                    @from Bit 14
+   str r1,[r0]
 
 @ Setting baud rate parameters
 @ Baud rate divisor BAUDDIV = (FUARTCLK/(16 * Baud rate))
@@ -89,7 +93,6 @@ UartPutc:
 /* void UartPuts (int String, int len)
    write string of length (len) to the UART
 */
-
 UartPuts:
    push {r1,r2,lr}
    mov r2,r0                  @Store address of the string to r2

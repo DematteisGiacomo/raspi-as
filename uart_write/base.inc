@@ -1,3 +1,8 @@
+
+
+
+
+
 .equ RPI_BASE, 0xFE000000
 
 .equ GPIO_BASE, RPI_BASE + 0x200000
@@ -9,13 +14,26 @@
 .equ GPFSEL3, GPIO_BASE + 0xC   @GPIO select 3
 .equ GPFSEL4, GPIO_BASE + 0x10  @GPIO select 4
 
-@ GPIO SET/CLEAR registers have 1 bit per GPIO
+   .equ GPIO_input,  0b000      @Input
+   .equ GPIO_output, 0b001      @Output
+   .equ GPIO_alt0,   0b100      @alternate function 0
+   .equ GPIO_alt1,   0b101      @alternate function 1
+   .equ GPIO_alt2,   0b110      @alternate function 2
+   .equ GPIO_alt3,   0b111      @alternate function 3
+   .equ GPIO_alt4,   0b011      @alternate function 4
+   .equ GPIO_alt5,   0b010      @alternate function 5
+
+@GPIO SET/CLEAR registers have 1 bit per GPIO
 .equ GPSET0, GPIO_BASE + 0x1C @set0 (GPIO 0 - 31)
 .equ GPSET1, GPIO_BASE + 0x20 @set1 (GPIO 32 - 63)
 .equ GPCLR0, GPIO_BASE + 0x28 @clear0 (GPIO 0 - 31)
 .equ GPCLR1, GPIO_BASE + 0x2C @clear1 (GPIO 32 - 63)
 
-.equ GPIO_PUP_PDN_CNTRL_REG0, GPIO_BASE + 0xe4
+@Old GPIO functions
+.equ GPPUD,     GPIO_BASE + 0x94        
+    .equ   GPPUD_OFF,       0b00
+.equ GPPUDCLK0, GPIO_BASE + 0x98
+
 
 @Timer registers
 .equ TIMER_BASE, RPI_BASE + 0x003000
