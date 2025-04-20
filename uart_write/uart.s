@@ -1,8 +1,3 @@
-
-
-
-
-
 .include "base.inc"
 .include "gpio.h"
 .include "time.h"

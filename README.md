@@ -14,8 +14,12 @@ UART peripheral used to write strings to usb via TTL
 
 ## uart_read
 UART peripheral used to read strings from usb via TTL
+Uart reads are use to control the built-in LED.
 
-## pwd
+## pwd_blinky
+Control an led with pwd peripheral
+
+## pwd_motor
 Control a motor with pwd peripheral
 
 ## To compile

@@ -1,8 +1,3 @@
-
-
-
-
-
 .equ RPI_BASE, 0xFE000000
 
 .equ GPIO_BASE, RPI_BASE + 0x200000
